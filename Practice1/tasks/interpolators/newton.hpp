@@ -22,7 +22,8 @@ class Newton
     void calculateCoefs(const std::vector<node>& points){
         std::vector<node> tmp1 = points;
         std::vector<node> tmp2 = points;
-        std::vector<double> coeffs;
+        // std::vector<double> coeffs;
+        // coeffs.push_back(points[0].value);
         coeffs.push_back(points[0].value);
         size_t tmpN = N;
         while (tmpN>1)
@@ -38,12 +39,12 @@ class Newton
         }
     }
     public:
-    Newton(const std::vector<double>& x, const std::vector<double>& u): x0(x), coeffs(x.size()+1, 0), N(x.size())
+    Newton(const std::vector<double>& x, const std::vector<double>& u): x0(x), N(x.size())
     {
         std::vector<node> points(N);
         for (int i=0; i<N; i++)
         {
-            points[i]=node(u[i],x[i], x[0]);
+            points[i]=node(u[i],x[i], x[i]);
         }
         calculateCoefs(points);
     }
@@ -58,7 +59,7 @@ class Newton
             // std::cout<<" "<<coeffs[i+1]<<" * ";
             for(int j=0; j<=i; j++){
                 tmpTerm *= x - x0[j];
-                // std::cout<<"(x - "<<points[j].leftX<<")";
+                // std::cout<<"(x - "<<x0[j]<<")";
             }
             tmpTerm *= coeffs[i+1];
             result += tmpTerm;

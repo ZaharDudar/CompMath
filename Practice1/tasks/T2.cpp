@@ -55,11 +55,10 @@ int main()
 {
     double x0 = 0;
     double x1 = 3;
-    double step = 1e-5;
+    double step = 1e-6;
     printf("Rectangles: \t %0.12f\n", integrateRect(f, x0, x1, step));
     printf("Sympson:    \t %0.12f\n", integrateSympson(f, x0, x1, step));
     printf("Trapezoid:  \t %0.12f\n", integrateTrapezoid(f, x0, x1, step));
-    printf("Wolfram answ: \t asdasda");
 
 }
 

@@ -48,7 +48,13 @@ int main()
     std::vector<double> u0{1,1};
     for (int i=0; i< 10; i++)
     {
-        u0 = u0 - reverseJ(u0) * f(u0);
+        auto newU = u0 - reverseJ(u0) * f(u0);
+        if (abs(newU-u0) < std::numeric_limits<double>::epsilon())
+        {
+            std::cout<<i<<"\n";
+            break;
+        }
+        u0= newU;
     }
     std::cout << u0 << std::endl;
 
@@ -69,7 +75,7 @@ int main()
         auto newU = std::vector<double>{newX, newY};
         if (abs(newU-u0) < std::numeric_limits<double>::epsilon())
         {
-            // std::cout<<i<<"\n";
+            std::cout<<i<<"\n";
             break;
         }
         u0 = newU;

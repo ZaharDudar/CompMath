@@ -31,12 +31,23 @@ int main(){
         248'709'873 ,
         281'421'906
     };
+    // std::vector<double> x = {
+    //     0,
+    //     1,
+    //     2
+    // };
+    // std::vector<double> u = {
+    //     0,
+    //     1,
+    //     4
+    // };
+
 
     Newton newtonPol(x, u);
     spline mySpline(x, u);
 
-    std::ofstream file("/home/zahar/Edu/CompMath/Practice1/tasks/output/out.csv");
-    double a=1900;
+    std::ofstream file("/home/zahar/Edu/CompMath/CompMath/Practice1/tasks/output/out.csv");
+    double a=1910;
     double b=2010;
     double rightAnswer=308745538;
     double step=5;
@@ -47,7 +58,7 @@ int main(){
     file.close();
 
 
-    file.open("/home/zahar/Edu/CompMath/Practice1/tasks/output/outSpline.csv");
+    file.open("/home/zahar/Edu/CompMath/CompMath/Practice1/tasks/output/outSpline.csv");
     printf("In 2010 will be: %d by Cubic Spline polynom\n", (int)mySpline.interpolate(2010));
     for(int stepIdx = 0; stepIdx <= ((b-a)/step); stepIdx++){
         file<<a+stepIdx*step<<","<<mySpline.interpolate(a+stepIdx*step)<<"\n";
