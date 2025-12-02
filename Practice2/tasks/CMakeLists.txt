@@ -16,5 +16,7 @@ endforeach()
 
 target_link_libraries(XI.9.3 LinearSystemSolver)
 target_link_libraries(X.9.3 LinearSystemSolver)
+target_link_libraries(T3 LinearSystemSolver)
 target_compile_options(X.9.3 PUBLIC -O3)
+target_compile_options(T3 PUBLIC -O3)
 
