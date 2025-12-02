@@ -7,23 +7,6 @@
 #include <fstream>
 #include <iomanip>
 
-/*
- * y''-x*sqrt(y)=0
- * y(0) = 0,
- * y(1) = 2
- * Методом пристрелки
- *
- * (2):
- * y''-x*sqrt(y)=0
- * y(0) = 0,
- * y'(1) = alpha
- *
- * g(x,alpha) - решение (2)
- * g(1,alpha) - y(1)=t(alpha)=0
- * alpha_{n+1} = alpha_{n} - t(alpha_n) / t'(alpha_n),
- * где t'(alpha_n) = (t(alpha_n+epsilon) - t(alpha_n))/epsilon
- */
-
 std::vector<double> f(const double x, const std::vector<double>& u)
 {
     constexpr double mu = 1000;
@@ -33,7 +16,7 @@ std::vector<double> f(const double x, const std::vector<double>& u)
 
 int main()
 {
-    auto solution = RK::classicRK<std::vector<double>>(f,std::vector<double>{0, 0.001},0.,1000,0.0005);
+    auto solution = Methods::classicRK(f,std::vector<double>{0, 0.001},0.,1000,0.0005);
     std::cout<<std::setprecision(16)<<solution.back().y[0]<<std::endl;
 
     std::ofstream output(OUTPUT_DIR"X93.csv");

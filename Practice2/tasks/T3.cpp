@@ -19,7 +19,7 @@ std::vector<double> f(const double x, const std::vector<double>& u)
 
 double g(const double x,const double alpha)
 {
-    auto solution = RK::classicRK<std::vector<double>>(f,std::vector<double>{0, alpha},0.,x,0.0005);
+    auto solution = Methods::classicRK(f,std::vector<double>{0, alpha},0.,x,0.0005);
     return solution.back().y[0];
 }
 
@@ -40,14 +40,14 @@ int main()
     std::cout<<alpha<<std::endl;
 
     std::ofstream output(OUTPUT_DIR"T3.csv");
-    auto solution = RK::classicRK<std::vector<double>>(f,std::vector<double>{0, alpha},0.,std::numbers::pi,0.0005);
+    auto solution = Methods::classicRK(f,std::vector<double>{0, alpha},0.,std::numbers::pi,0.0005);
     output<<std::setprecision(16);
     std::cout<<std::setprecision(16);
     for (int i=0; i<solution.size(); i++)
     {
         output<<solution[i].x << "," << solution[i].y[0] << std::endl;
 
-        for (const auto point : std::vector<double>{0.5,1,1.5,2,2.5})
+        for (const auto point : std::vector<double>{0.5,1,1.5,2,2.5,3})
         {
             if (std::abs(solution[i].x - point) < 1e-10)
             {
