@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <cmath>
 
 constexpr double L = 20;
 constexpr double T = 50;
@@ -13,8 +14,7 @@ constexpr int N = L / h + 1;
 
 /*
  * Нач:
- * u(x, 0) = 1, x <= 5
- * u(x, 0) = 0, 5<x<=20
+ * u(x, 0) = sin(4pi x /L), x <= 5
  */
 
 std::vector<double> step(const std::vector<double>& u0, double dt)
@@ -54,10 +54,7 @@ int main()
 
     for(int i = 0; i < N; i++)
     {
-        if (i * h <= 5)
-        {
-            u[i]=1;
-        }
+        u[i]=std::sin(4 * std::numbers::pi * (i * h)/L);
     }
     cacl(0.6, u);
     cacl(1, u);
