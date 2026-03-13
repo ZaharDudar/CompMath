@@ -19,7 +19,7 @@ totalL = 20
 
 hs = np.array(list(range(1,6))) * 0.1
 
-norma = "C" # C, L1, L2
+norma = "L1" # C, L1, L2
 appA = []
 appB = []
 #норма C
@@ -77,13 +77,14 @@ if norma=="L2":
             delta += np.sum(np.abs(np.sin(4*np.pi / 20 * (-tB[i][j] + x)) - line)**2) * dh * dt
         appB.append(sqrt(float(delta)))
 
-# print(appA, np.log(appA), np.log(np.log(appA)))
-# appA = np.abs(np.log(np.abs(np.log(appA))))
-# appB = np.abs(np.log(np.abs(np.log(appB))))
+
 appA = np.log(appA)
 appB = np.log(appB)
+hs = np.log(hs)
 ax[0].plot(hs, appA, 'o')
 ax[1].plot(hs, appB, 'o')
+
+# logHs = np.log(/hs/)
 
 pA = np.polyfit(hs, appA, 1)
 ax[0].plot(hs, np.polyval(pA, hs))
@@ -93,7 +94,9 @@ print(f"{norma} a {pA[0]}, {norma} b {pB[0]}")
 
 
 # ax[0].set_yscale('log')
+# ax[0].set_xscale('log')
 # ax[1].set_yscale('log')
+# ax[1].set_xscale('log')
 
 ax[0].grid()
 ax[1].grid()
