@@ -43,7 +43,7 @@ ax[1][0].set_title("e кДж/кг")
 ax[1][1].set_title("P aтм")
 
 min_t, max_t = 0, 15.5 #ms
-idx_0, idx_1, di = (np.abs(t - min_t/10**3)).argmin(), (np.abs(t - max_t/10**3)).argmin(), 800
+idx_0, idx_1, di = (np.abs(t - min_t/10**3)).argmin(), (np.abs(t - max_t/10**3)).argmin(), 1
 # idx_0, idx_1, di = 0, len(rho), 100
 
 # rho = np.where(np.isnan(rho), 0, rho)

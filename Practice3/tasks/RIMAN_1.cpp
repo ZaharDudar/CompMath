@@ -63,10 +63,12 @@ Vec3 wNext(const Vec3& wC, const Vec3& wP, const Vec3& wN, const double dt, cons
     return wC - dt * A(u,e) * (wN - wP) / (2*dh) + dt * (omegaTinv(u,e) * LambdaAbs(u,e) * omegaT(u,e)) * (wN - 2 * wC + wP) / (2*dh);
 }
 
-constexpr int    NX  =  100;
+constexpr int    NX  =  300;
 constexpr double L   =  10;
 constexpr double dh  =  2 * L/(NX-1);
 constexpr double CFT = 0.01;
+
+constexpr double writeInterval = 1e-4;
 
 constexpr double maxT = 0.02;
 auto maxL = [](const std::array<Vec3, NX>& u)
@@ -87,6 +89,7 @@ int main()
     std::array<Vec3, NX> u; // В модифицированных переменных {rho, rho u, rho e}
     std::array<Vec3, NX> u1;
     double t=0;
+    double lastTimeWrite=0;
     double dt=1;
     for (int i=0; i<NX/2; i++)
     {
@@ -108,7 +111,6 @@ int main()
     t_f.open(OUTPUT_DIR"RIMAN_1_t.csv");
     while (t<maxT)
     {
-        std::cout<<std::scientific<<t<<'\t'<<dt<<"\n";
         dt = std::min(1e-7, CFT * dh / maxL(u));
         for (int i=1; i<NX-1; i++)
         {
@@ -116,31 +118,37 @@ int main()
         }
         u1[0] = u1[1];
         u1[NX-1] = u1[NX-2];
-        t+=dt;
-        for (int i=0; i<NX; i++)
-        {
-            u[i] = u1[i];
-            double rho = u[i][0];
-            double v   = u[i][1]/rho;
-            double e   = u[i][2]/rho;
-            double p   = (gm-1)*rho*e;
-            rho_f << rho;
-            u_f << v ;
-            e_f << e ;
-            p_f << p ;
-            if (i < NX-1) {
-                rho_f << ",";
-                u_f <<   ",";
-                e_f <<   ",";
-                p_f <<   ",";
-            };
 
+        u = u1;
+        t+=dt;
+        if (t - lastTimeWrite >= writeInterval)
+        {
+            for (int i=0; i<NX; i++)
+            {
+                double rho = u[i][0];
+                double v   = u[i][1]/rho;
+                double e   = u[i][2]/rho;
+                double p   = (gm-1)*rho*e;
+                rho_f << rho;
+                u_f << v ;
+                e_f << e ;
+                p_f << p ;
+                if (i < NX-1) {
+                    rho_f << ",";
+                    u_f <<   ",";
+                    e_f <<   ",";
+                    p_f <<   ",";
+                };
+
+            }
+            t_f << t <<"\n";
+            rho_f << "\n";
+            u_f << "\n";
+            e_f << "\n";
+            p_f << "\n";
+            lastTimeWrite = t;
+            std::cout<<std::scientific<<t<<"\t"<<dt<<"\n";
         }
-        t_f << t <<"\n";
-        rho_f << "\n";
-        u_f << "\n";
-        e_f << "\n";
-        p_f << "\n";
     }
     rho_f.close();
     u_f.close();

@@ -2,13 +2,13 @@ file(GLOB_RECURSE Tasks *.cpp)
 
 include(FetchContent)
 
-#FetchContent_Declare(
-#        eigen
-#        GIT_REPOSITORY "https://gitlab.com/libeigen/eigen.git"
-#        GIT_TAG 5.0.0
-#)
-#
-#FetchContent_MakeAvailable(eigen)
+FetchContent_Declare(
+        eigen
+        GIT_REPOSITORY "https://gitlab.com/libeigen/eigen.git"
+        GIT_TAG 5.0.0
+)
+
+FetchContent_MakeAvailable(eigen)
 
 
 FetchContent_Declare(
@@ -27,4 +27,6 @@ endforeach()
 
 target_link_libraries(filtering PRIVATE LinearSystemSolver)
 target_link_libraries(heat PRIVATE LinearSystemSolver)
+target_link_libraries(HLL PRIVATE eigen)
+target_link_libraries(HLLc PRIVATE eigen)
 
