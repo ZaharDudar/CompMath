@@ -46,7 +46,7 @@ if norma=="L1":
         for j, line in enumerate(data):
             dh = totalL / len(line)
             x = np.linspace(0,20, len(line))
-            delta += np.sum(np.abs(np.sin(4*np.pi / 20 * (-tB[i][j] + x)) - line)) * dh * dt
+            delta += np.sum(np.abs(np.sin(4*np.pi / 20 * (-tB[i][j] + x)) - line)) * dh *       dt
         appA.append(delta)
 
     for i, data in enumerate(dataB):
