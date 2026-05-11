@@ -104,5 +104,5 @@ fig.set_size_inches(10,8)
 
 
 ani = anim.FuncAnimation(fig, update, frames=range(idx_0, idx_1), interval=5, repeat_delay=5000)
-# ani.save("../riman_1.gif")
+ani.save("../riman_KIR_HLL_HLLc.gif")
 plt.show()
