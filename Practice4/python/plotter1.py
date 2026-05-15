@@ -4,8 +4,8 @@ import numpy as np
 
 p = np.loadtxt("./output/p.csv", delimiter=',')
 time = np.loadtxt("./output/time.csv", delimiter=',')
-rho = 1000 * (1 + 1e-4 * (p - 120 * 1e5))
-
+# rho = 1000 * (np.ones_like(p) + 1e-4 * (p - 120 * 1e5))
+rho = ((p * 1e-5 - 120) * 1e-4 + 1) * 1000
 fig, ax = plt.subplots(1, 2)
 
 x = np.linspace(0, 500, len(p[0]))
